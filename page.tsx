@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import RecommendationBox from "./components/ui/recommendation-box"
+import { fetchAnimeCover } from "@/app/api/anilist/route"; // Adjust path based on your project structure
+
 
 export default function Home() {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [description, setDescription] = useState("")
-  const [recommendations, setRecommendations] = useState<string[][]>([])
+  const [recommendations, setRecommendations] = useState<
+    { title: string; description: string; image: string }[]
+  >([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -37,42 +41,35 @@ export default function Home() {
   }
 
   const handleGetRecommendations = async () => {
-    setIsLoading(true)
-    setError("")
+    setIsLoading(true);
+    setError("");
 
     try {
       const response = await fetch("/api/recommendations", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          description,
-          tags: selectedTags,
-        }),
-      })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description, tags: selectedTags }),
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to get recommendations")
+      if (!response.ok) throw new Error("Failed to get recommendations");
+
+      const data = await response.json();
+      const animeList: string[] = data.recommendations.split(" | ");
+      const animeFinish: { title: string; description: string; image: string }[] = [];
+
+      for (const anime of animeList) {
+        const [title, description] = anime.split(" ~ ");
+        const image = await fetchAnimeCover(title);
+        animeFinish.push({ title, description, image });
       }
 
-      // break up json response
-      const data = await response.json()
-      // console.log(data)
-      const animeList: string[] = data.recommendations.split(" | ")
-      var animeFinish: string[][] = []
-      animeList.forEach(anime => {
-        const animeDesc = anime.split(' ~ ')
-        animeFinish.push(animeDesc)
-      });
-      console.log(animeFinish)
-      setRecommendations(animeFinish)
+      setRecommendations(animeFinish);
     } catch (err) {
-      setError("Failed to get recommendations. Please try again.")
+      setError("Failed to get recommendations. Please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white">
