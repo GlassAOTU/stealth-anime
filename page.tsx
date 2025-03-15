@@ -18,18 +18,18 @@ export default function Home() {
   const [error, setError] = useState("")
 
   const tags = [
-    "Adventure",
-    "Isekai",
-    "Comedy",
-    "Horror",
-    "Sci-Fi",
-    "Slice of Life",
-    "Action",
     "Shonen",
+    "Isekai",
+    "Fantasy",
+    "Slice of Life",
+    "Sci-Fi",
+    "Romance",
+    "Comedy",
+    "Sports",
+    "Horror",
+    "Psychological",
     "Retro",
     "90s",
-    "Fun",
-    "Hello",
   ]
 
   const handleTagClick = (tag: string) => {
