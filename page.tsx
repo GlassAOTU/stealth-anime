@@ -73,31 +73,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="text-xl font-bold">BENTO</div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-600 hover:text-gray-900">
-                Discover
-              </a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">
-                Recommendations
-              </a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">
-                Watchlist
-              </a>
-            </nav>
-            <div className="flex items-center gap-4">
-              <button className="text-sm text-gray-600">Sign Out</button>
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Recommended%20Anime-19iGdw33ZsM1k2jm0QZ8CvjcJI2G9Q.png" alt="User" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-        </div>
-      </header>
+      
 
       <div className="relative h-[300px] flex items-center justify-center text-white">
         <div className="absolute inset-0 bg-[url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/i-made-some-phone-wallpapers-from-the-first-4-episodes-v0-74rejus01woc1-ps2l55aLfu2uXnHS0UYqVMNQnnYTRT.webp')] bg-cover bg-center">

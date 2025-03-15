@@ -10,7 +10,6 @@ export default function RecommendationBox({ item }: any) {
           <p className="font-bold">{item.title}</p>
           <p className="text-sm text-gray-600">{item.description}</p>
         </div>
-        <Button variant="outline" className="w-fit">Add to watchlist</Button>
       </div>
     </div>
   );
