@@ -121,7 +121,7 @@ export default function Home() {
                                 <Badge
                                     key={tag}
                                     variant={isSelected ? "default" : "outline"}
-                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all ${isSelected ? "bg-purple-500 hover:bg-purple-600" : "hover:bg-purple-100"
+                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all ${isSelected ? "bg-zinc-700 hover:bg-zinc-800 font-semibold" : "hover:bg-zinc-300"
                                         }`}
                                     onClick={() => handleTagClick(tag)}
                                 >
@@ -137,7 +137,7 @@ export default function Home() {
                                 <Badge
                                     key={tag}
                                     variant="default"
-                                    className="text-sm max-px-4 py-1 cursor-pointer transition-all bg-purple-500 hover:bg-purple-600"
+                                    className="text-sm max-px-4 py-1 cursor-pointer transition-all bg-zinc-800 hover:bg-zinc-900 font-semibold"
                                     onClick={() => handleTagClick(tag)}
                                 >
                                     {tag}
@@ -159,7 +159,7 @@ export default function Home() {
 
 
 
-                    <Button className="w-full mx-auto mt-8 bg-purple-500 hover:bg-purple-600 text-white" disabled={(!description && selectedTags.length === 0) || isLoading} onClick={handleGetRecommendations}>
+                    <Button className="w-full mx-auto mt-8 bg-zinc-800 hover:bg-zinc-900 text-white" disabled={(!description && selectedTags.length === 0) || isLoading} onClick={handleGetRecommendations}>
                         {isLoading ? "Getting Recommendations..." : "Get Recommendations"}
                     </Button>
                     {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
