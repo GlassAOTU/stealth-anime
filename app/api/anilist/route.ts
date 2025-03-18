@@ -11,18 +11,17 @@ export async function fetchAnimeCover(animeTitle: string) {
         }
       }
     `;
-  
+
     const variables = { search: animeTitle };
-  
+
     const response = await fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query, variables }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query, variables }),
     });
-  
+
     const data = await response.json();
     return data?.data?.Media?.coverImage?.large || "";
-  }
-  
+}

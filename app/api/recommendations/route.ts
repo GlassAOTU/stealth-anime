@@ -20,8 +20,10 @@ export async function POST(request: Request) {
         { role: "system", content: "You are a helpful assistant." },
         {
           role: "user",
-          content: `top 5 and only 5 most animes similar to ${prompt} or has elements of ${prompt}. 
-          the answer can be anime movies and anime shows, but no manga or books, etc. 
+          content: `top 5 and only 5 most animes similar to ${prompt} or has elements of ${prompt}.
+          there will be some predefined anime tags, and custom tags typed by the user. the custom tags should be anime genres. 
+          if the genre or text doesn't make any sense, ignore it completely, just take genres that make sense.
+          the answer can be anime movies and anime shows, but no manga or books, etc, and no hentai or pornographic content. 
           answer only in titles and descriptions, the description being two sentences only. 
           the format of the 5 should be: [title] ~ [description] | [title] ~ [description] | [title] ~ [description] | [title] ~ [description] | [title] ~ [description]. 
           no markdown formatting, only plain text`,
