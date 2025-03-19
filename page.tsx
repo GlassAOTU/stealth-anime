@@ -95,9 +95,9 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-white">
 
-            <div className="relative h-[350px] flex items-center justify-center text-white">
+            <div className="relative h-[500px] flex items-center justify-center text-white">
                 <div className="absolute inset-0 bg-[url('/banner-image.png')] bg-cover bg-center">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/50 to-orange-300/50 backdrop-blur-sm"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br bg-black/10 backdrop-blur-sm"></div>
                 </div>
                 <div className="relative text-center space-y-4">
                     <h1 className="text-4xl font-bold tracking-tight">WELCOME TO BENTO</h1>
@@ -121,7 +121,7 @@ export default function Home() {
                                 <Badge
                                     key={tag}
                                     variant={isSelected ? "default" : "outline"}
-                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all ${isSelected ? "bg-zinc-700 hover:bg-zinc-800 font-semibold" : "hover:bg-zinc-300"
+                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all ${isSelected ? "bg-zinc-800 hover:bg-zinc-900 font-semibold" : "hover:bg-zinc-300"
                                         }`}
                                     onClick={() => handleTagClick(tag)}
                                 >
@@ -152,7 +152,7 @@ export default function Home() {
                                 value={customTag}
                                 onChange={handleInputChange}
                                 onKeyDown={handleInputKeyDown}
-                                className="text-sm px-2 py-1 rounded-full border border-gray-300 w-36 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="text-sm px-2 py-1 rounded-full border border-gray-300 w-36 focus:outline-none focus:ring-2 focus:ring-black"
                             />
                         )}
                     </div>
