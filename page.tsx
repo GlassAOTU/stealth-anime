@@ -5,14 +5,14 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import RecommendationBox from "./components/ui/recommendation-box"
-import { fetchAnimeCover } from "@/app/api/anilist/route"; // Adjust path based on your project structure
+import { fetchAnimeDetails } from "@/app/api/anilist/route"; // Adjust path based on your project structure
 
 
 export default function Home() {
     const [selectedTags, setSelectedTags] = useState<string[]>([])  // state of empty array of string, initalized to an empty array
     const [customTag, setCustomTag] = useState("")   // stores user tag input
     const [description, setDescription] = useState("")
-    const [recommendations, setRecommendations] = useState<{ title: string; description: string; image: string }[]>([]);
+    const [recommendations, setRecommendations] = useState<{ title: string; description: string; image: string; streamingLink: { url: string; site: string } | null }[]>([]);
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
 
@@ -64,34 +64,40 @@ export default function Home() {
     const handleGetRecommendations = async () => {
         setIsLoading(true);
         setError("");
-
+    
         try {
             const response = await fetch("/api/recommendations", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ description, tags: selectedTags }),
             });
-
+    
             if (!response.ok) throw new Error("Failed to get recommendations");
-
+    
             const data = await response.json();
             const animeList: string[] = data.recommendations.split(" | ");
-            const animeFinish: { title: string; description: string; image: string }[] = [];
-
+            const animeFinish: { title: string; description: string; image: string; streamingLink: { url: string; site: string } | null }[] = [];
+    
             for (const anime of animeList) {
                 const [title, description] = anime.split(" ~ ");
-                const image = await fetchAnimeCover(title);
-                animeFinish.push({ title, description, image });
+                const { coverImage, streamingLink } = await fetchAnimeDetails(title);
+    
+                animeFinish.push({ 
+                    title, 
+                    description, 
+                    image: coverImage, 
+                    streamingLink  // This is now a single link, not an array
+                });
             }
-
+    
             setRecommendations(animeFinish);
         } catch (err) {
             setError("Failed to get recommendations. Please try again.");
         } finally {
             setIsLoading(false);
         }
-    };
-
+    };    
+    
     return (
         <div className="min-h-screen bg-white">
 
