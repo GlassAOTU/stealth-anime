@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import RecommendationBox from "./components/ui/recommendation-box"
-import { fetchGameCover } from "@/lib/fetchGameCover"; // Adjust path based on your project structure
+import { fetchGameDetails } from "@/lib/fetchGameDetails"; // Adjust path based on your project structure
 
 
 export default function Home() {
@@ -79,9 +79,11 @@ export default function Home() {
             const gameFinish: { title: string; description: string; image: string }[] = [];
 
             for (const game of gameList) {
-                const [title, description] = game.split(" ~ ");
-                const image = await fetchGameCover(title);
-                gameFinish.push({ title, description, image });
+                const [title] = game.split(" ~ ");
+                const { coverUrl, description: summary } = await fetchGameDetails(title);
+                gameFinish.push({ title, description: summary ?? "No description available.", image: coverUrl ?? "/fallback.jpg" });
+
+
             }
 
             setRecommendations(gameFinish);
@@ -95,11 +97,11 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-white">
 
-            <div className="relative h-[500px] flex items-center justify-center text-white">
-                <div className="absolute inset-0 bg-[url('/plg-banner.png')] bg-cover bg-center">
-                    <div className="absolute inset-0 bg-gradient-to-br bg-black/10 "></div>
-                </div>
+            <div className="relative w-full aspect-[6/1] text-white">
+                <div className="absolute inset-0 bg-[url('/plg-banner.png')] bg-cover bg-center"></div>
+                {/* Centered content if needed */}
             </div>
+
 
             <div className="container mx-auto px-4 py-8 space-y-6">
                 <div className="relative text-center space-y-4">
