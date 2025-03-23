@@ -17,19 +17,20 @@ export default function Home() {
     const [error, setError] = useState("")
 
     const tags = [
-        "Shonen",
-        "Isekai",
-        "Fantasy",
-        "Slice of Life",
-        "Sci-Fi",
-        "Romance",
-        "Comedy",
-        "Sports",
+        "Action",
+        "Adventure",
+        "RPG",
+        "Shooter",
+        "Strategy",
+        "Puzzle",
+        "Platformer",
+        "Simulation",
         "Horror",
-        "Psychological",
-        "Retro",
-        "Long runners",
-        "Quick watches"
+        "Sports",
+        "Fighting",
+        "MMO",
+        "Indie",
+        "AAA"
     ]
 
     const handleTagClick = (tag: string) => {
@@ -96,16 +97,16 @@ export default function Home() {
         <div className="min-h-screen bg-white">
 
             <div className="relative h-[500px] flex items-center justify-center text-white">
-                <div className="absolute inset-0 bg-[url('/banner-image.png')] bg-cover bg-center">
-                    <div className="absolute inset-0 bg-gradient-to-br bg-black/10 backdrop-blur-sm"></div>
-                </div>
-                <div className="relative text-center space-y-4">
-                    <h1 className="text-4xl font-bold tracking-tight">WELCOME TO BENTO</h1>
-                    <p className="text-xl">A new way to save and discover your favorite anime!</p>
+                <div className="absolute inset-0 bg-[url('/plg-banner.png')] bg-cover bg-center">
+                    <div className="absolute inset-0 bg-gradient-to-br bg-black/10 "></div>
                 </div>
             </div>
 
             <div className="container mx-auto px-4 py-8 space-y-6">
+                <div className="relative text-center space-y-4">
+                    <h1 className="text-2xl font-bold tracking-tight">WELCOME TO PLG</h1>
+                    <p className="text-xl">A new way to save and discover your favorite games!</p>
+                </div>
                 <div className="max-w-2xl mx-auto space-y-2">
                     <p className="text-gray-600">Share a short description of what you're looking for / choose some tags.</p>
                     <p className="text-sm text-gray-500">We take care of the rest</p>

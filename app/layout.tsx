@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'PLG',
+  description: 'A new way to save and discover your favorite games!',
 }
 
 export default function RootLayout({
