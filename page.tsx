@@ -2,10 +2,9 @@ import Image from "next/image"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import RecommendationBox from "./components/ui/recommendation-box"
-import { fetchAnimeCover } from "@/app/api/anilist/route"; // Adjust path based on your project structure
+import { fetchGameCover } from "@/lib/fetchGameCover"; // Adjust path based on your project structure
 
 
 export default function Home() {
@@ -76,16 +75,16 @@ export default function Home() {
             if (!response.ok) throw new Error("Failed to get recommendations");
 
             const data = await response.json();
-            const animeList: string[] = data.recommendations.split(" | ");
-            const animeFinish: { title: string; description: string; image: string }[] = [];
+            const gameList: string[] = data.recommendations.split(" | ");
+            const gameFinish: { title: string; description: string; image: string }[] = [];
 
-            for (const anime of animeList) {
-                const [title, description] = anime.split(" ~ ");
-                const image = await fetchAnimeCover(title);
-                animeFinish.push({ title, description, image });
+            for (const game of gameList) {
+                const [title, description] = game.split(" ~ ");
+                const image = await fetchGameCover(title);
+                gameFinish.push({ title, description, image });
             }
 
-            setRecommendations(animeFinish);
+            setRecommendations(gameFinish);
         } catch (err) {
             setError("Failed to get recommendations. Please try again.");
         } finally {
@@ -164,6 +163,7 @@ export default function Home() {
                         {isLoading ? "Getting Recommendations..." : "Get Recommendations"}
                     </Button>
                     {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+
 
                     <div className="flex flex-col mt-8 gap-2">
                         {recommendations.map((item, index) => (
