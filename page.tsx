@@ -104,7 +104,7 @@ export default function Home() {
             <div className="container mx-auto px-4 py-8 space-y-6">
                 <div className="relative text-center space-y-4">
                     <h1 className="text-2xl font-bold tracking-tight">WELCOME TO PLG</h1>
-                    <p className="text-xl">A new way to save and discover your favorite games!</p>
+                    <p className="text-xl">Find your next game to play!</p>
                 </div>
                 <div className="max-w-2xl mx-auto space-y-2">
                     <p className="text-gray-600">Share a short description of what you're looking for / choose some tags.</p>

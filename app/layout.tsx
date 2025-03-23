@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'PLG',
-  description: 'A new way to save and discover your favorite games!',
+  description: 'Find your next game to play!',
 }
 
 export default function RootLayout({
