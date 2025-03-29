@@ -1,11 +1,11 @@
 import Image from "next/image"
+import { silkscreen } from "./app/page"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import RecommendationBox from "./components/ui/recommendation-box"
 import { fetchGameDetails } from "@/lib/fetchGameDetails"; // Adjust path based on your project structure
-
 
 export default function Home() {
     const [selectedTags, setSelectedTags] = useState<string[]>([])  // state of empty array of string, initalized to an empty array
@@ -39,7 +39,6 @@ export default function Home() {
             setSelectedTags([...selectedTags, tag])     // adds tag to the end selectedTags array
         }
     }
-
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCustomTag(e.target.value);
@@ -95,36 +94,52 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-white">
-
-            <div className="relative w-full aspect-[6/1] text-white">
-                <div className="absolute inset-0 bg-[url('/plg-banner.png')] bg-cover bg-center"></div>
-                {/* Centered content if needed */}
+        <div className="min-h-screen bg-[#18131b]">
+            {/* banner image */}
+            <div className="w-full bg-black flex justify-center">
+                <img
+                    src="/plg-banner.png"
+                    alt="Banner"
+                    className="w-full max-w-5xl h-auto object-contain"
+                />
             </div>
 
-
-            <div className="container mx-auto px-4 py-8 space-y-6">
-                <div className="relative text-center space-y-4">
-                    <h1 className="text-2xl font-bold tracking-tight">WELCOME TO PLG</h1>
-                    <p className="text-xl">Find your next game to play!</p>
-                </div>
-                <div className="max-w-2xl mx-auto space-y-2">
-                    <p className="text-gray-600">Share a short description of what you're looking for / choose some tags.</p>
-                    <p className="text-sm text-gray-500">We take care of the rest</p>
-                    <Input type="text" placeholder="Write your description..." className="w-full" value={description} onChange={(e) => setDescription(e.target.value)} />
+            {/* main section */}
+            <div className="container mx-auto px-4 py-8 space-y-6 text-[#E0E0E0]">
+                {/* heading */}
+                <div className={`relative text-center space-y-4 ${silkscreen.className}`}>
+                    <h1 className="text-4xl font-bold tracking-tight">WELCOME TO PLG</h1>
+                    <p className="text-3xl">Find your next game to play!</p>
                 </div>
 
+                {/* description section */}
+                <div className="max-w-2xl mx-auto space-y-2 text-[#E0E0E0]">
+                    <p>Share a short description of what you're looking for / choose some tags.</p>
+                    <p className="text-sm">We take care of the rest</p>
+
+                    {/* description input */}
+                    <Input type="text" placeholder="Write your description..." className="w-full bg-[#1A1A1A] text-[#F8F8F2] border border-[#FF3CAC] placeholder-[#888] focus:outline-none hover:shadow-[0_0_10px_#ff8ace] focus:shadow-[0_0_10px_#ff8ace] transition-all rounded px-4 py-2" value={description} onChange={(e) => setDescription(e.target.value)} />
+                </div>
+
+                {/* tag section */}
                 <div className="max-w-2xl mx-auto">
-                    <p className="mb-3 text-gray-600">Tags (Choose up to {5 - selectedTags.length} or write your own)</p>
+                    {/* tag label */}
+                    <p className="mb-3 text-[#E0E0E0]">Tags (Choose up to {5 - selectedTags.length} or write your own)</p>
+
+                    {/* list of tags */}
                     <div className="flex flex-wrap gap-2">
                         {tags.map((tag) => {
                             const isSelected = selectedTags.includes(tag);
                             return (
+                                // prewritten tags
                                 <Badge
                                     key={tag}
                                     variant={isSelected ? "default" : "outline"}
-                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all ${isSelected ? "bg-zinc-800 hover:bg-zinc-900 font-semibold" : "hover:bg-zinc-300"
-                                        }`}
+                                    className={`text-sm max-px-4 py-1 cursor-pointer transition-all text-[#E0E0E0] 
+                                        ${isSelected
+                                            ? "bg-[#ff5db9] hover:bg-[#ff8ace] text-[#0C0C0C]"
+                                            : "border border-[#E0E0E0] hover:border-[#FF3CAC] hover:bg-[#18131b]"}`
+                                    }
                                     onClick={() => handleTagClick(tag)}
                                 >
                                     {tag}
@@ -132,21 +147,21 @@ export default function Home() {
                             );
                         })}
 
-                        {/* Render custom tags that weren't in the original list */}
+                        {/* custom written tags */}
                         {selectedTags
                             .filter((tag) => !tags.includes(tag)) // Only show truly custom tags
                             .map((tag) => (
                                 <Badge
                                     key={tag}
                                     variant="default"
-                                    className="text-sm max-px-4 py-1 cursor-pointer transition-all bg-zinc-800 hover:bg-zinc-900 font-semibold"
+                                    className="text-sm max-px-4 py-1 cursor-pointer transition-all text-[#0C0C0C] bg-[#ff5db9] hover:bg-[#ff8ace]"
                                     onClick={() => handleTagClick(tag)}
                                 >
                                     {tag}
                                 </Badge>
                             ))}
 
-                        {/* Custom tag input (only if less than 5 tags are selected) */}
+                        {/* custom tag input */}
                         {selectedTags.length < 5 && (
                             <input
                                 type="text"
@@ -154,19 +169,18 @@ export default function Home() {
                                 value={customTag}
                                 onChange={handleInputChange}
                                 onKeyDown={handleInputKeyDown}
-                                className="text-sm px-2 py-1 rounded-full border border-gray-300 w-36 focus:outline-none focus:ring-2 focus:ring-black"
+                                className="text-sm px-2 py-1 rounded-full bg-[#1A1A1A] text-[#F8F8F2] border hover:shadow-[0_0_5px_#ff8ace] transition-all border-[#FF3CAC] placeholder-[#888] focus:outline-none"
                             />
                         )}
                     </div>
 
-
-
-                    <Button className="w-full mx-auto mt-8 bg-zinc-800 hover:bg-zinc-900 text-white" disabled={(!description && selectedTags.length === 0) || isLoading} onClick={handleGetRecommendations}>
+                    {/* recommend button */}
+                    <Button className="w-full mx-auto mt-8 bg-[#00d0d0] transition-all hover:bg-[#00f7f7] hover:shadow-[0_0_10px_#00F7F7]  text-[#1A1A1A]" disabled={(!description && selectedTags.length === 0) || isLoading} onClick={handleGetRecommendations}>
                         {isLoading ? "Getting Recommendations..." : "Get Recommendations"}
                     </Button>
                     {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
 
-
+                    {/* list of returned recommendations */}
                     <div className="flex flex-col mt-8 gap-2">
                         {recommendations.map((item, index) => (
                             <div key={index}>
@@ -175,8 +189,6 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
-
-
             </div>
         </div>
     )
