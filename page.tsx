@@ -96,9 +96,9 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-[#18131b]">
             {/* banner image */}
-            <div className="w-full bg-black flex justify-center">
+            <div className="w-full flex justify-center">
                 <img
-                    src="/plg-banner.png"
+                    src="/plg-banner-transparent.png"
                     alt="Banner"
                     className="w-full max-w-5xl h-auto object-contain"
                 />
